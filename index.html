@@ -1,172 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Secure Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omsai</title>
+    <style>
+        body {
+            background-color: #050505;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 280px;
+        }
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+        .nav-btn {
+            position: relative;
+            padding: 20px 40px;
+            font-size: 20px;
+            font-weight: 700;
+            /* Blue Text */
+            color: #007bff;
+            background: rgba(255, 255, 255, 0.02);
+            border: 2px solid #007bff;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            border-radius: 15px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
 
-body{
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#1d2671);
-background-size:400% 400%;
-animation:bg 12s ease infinite;
-padding:20px;
-}
+        /* Shimmer Effect in Blue */
+        .nav-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 123, 255, 0.2), transparent);
+            transition: 0.6s;
+        }
 
-@keyframes bg{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
-}
+        .nav-btn:hover::before {
+            left: 100%;
+        }
 
-.card{
-width:100%;
-max-width:380px;
-padding:35px 25px;
-background:rgba(255,255,255,0.12);
-backdrop-filter:blur(15px);
-border-radius:18px;
-text-align:center;
-color:#fff;
-box-shadow:0 10px 40px rgba(0,0,0,0.35);
-}
+        /* Hover Interaction */
+        .nav-btn:hover {
+            background: #007bff;
+            color: #000; /* Text turns black on hover for contrast */
+            box-shadow: 0 0 30px rgba(0, 123, 255, 0.6);
+            transform: scale(1.05);
+            border-color: #fff;
+        }
 
-.lock{
-font-size:55px;
-margin-bottom:10px;
-}
+        /* Entrance Animation */
+        .nav-btn {
+            animation: slideUp 0.8s ease forwards;
+            opacity: 0;
+        }
 
-h2{
-font-size:22px;
-margin-bottom:8px;
-}
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-p{
-font-size:14px;
-opacity:0.8;
-margin-bottom:25px;
-}
-
-input{
-width:100%;
-padding:14px;
-border:none;
-outline:none;
-border-radius:10px;
-font-size:16px;
-margin-bottom:18px;
-}
-
-button{
-width:100%;
-padding:14px;
-border:none;
-border-radius:10px;
-background:linear-gradient(to right,#0072ff,#00c6ff);
-color:#fff;
-font-size:16px;
-cursor:pointer;
-transition:0.3s;
-}
-
-button:hover{
-transform:scale(1.03);
-}
-
-button:active{
-transform:scale(0.98);
-}
-
-#error{
-margin-top:12px;
-color:#ffb3b3;
-font-size:14px;
-min-height:20px;
-}
-
-.footer{
-margin-top:18px;
-font-size:12px;
-opacity:0.6;
-}
-
-/* MOBILE OPTIMIZATION */
-@media (max-width:480px){
-
-.card{
-padding:28px 18px;
-border-radius:14px;
-}
-
-.lock{
-font-size:45px;
-}
-
-h2{
-font-size:20px;
-}
-
-input,button{
-font-size:15px;
-padding:12px;
-}
-}
-</style>
-
+        .nav-btn:nth-child(1) { animation-delay: 0.1s; }
+        .nav-btn:nth-child(2) { animation-delay: 0.2s; }
+        .nav-btn:nth-child(3) { animation-delay: 0.3s; }
+        .nav-btn:nth-child(4) { animation-delay: 0.4s; }
+    </style>
 </head>
-
 <body>
 
-<div class="card">
-
-<div class="lock">🔒</div>
-<h2>Protected Access</h2>
-<p>Enter password to continue</p>
-
-<input type="password" id="password" placeholder="Enter Password">
-
-<button onclick="login()">Unlock</button>
-
-<div id="error"></div>
-
-<div class="footer">Authorized Users Only</div>
-
-</div>
-
-<script>
-
-const PASSWORD = "Omsai"; // change this
-
-function login(){
-let pass = document.getElementById("password").value;
-
-if(pass === PASSWORD){
-window.location.href = "https://guttulaomsai.github.io/project/";
-}else{
-document.getElementById("error").innerText = "❌ Wrong password";
-}
-}
-
-document.getElementById("password").addEventListener("keypress", function(e){
-if(e.key === "Enter"){
-login();
-}
-});
-
-</script>
+    <div class="button-container">
+        <button class="nav-btn" onclick="window.location.href='https://guttulaomsai.github.io/project/'">M a y i l</button>
+        <button class="nav-btn" onclick="window.location.href='https://guttulaomsai.github.io/project2/'">V a i s h n a v</button>
+        <button class="nav-btn" onclick="window.location.href='https://guttulaomsai.github.io/project3/'">N i t y a</button>
+        <button class="nav-btn" onclick="window.location.href='https://guttulaomsai.github.io/project4/'">J a y a</button>
+    </div>
 
 </body>
 </html>
